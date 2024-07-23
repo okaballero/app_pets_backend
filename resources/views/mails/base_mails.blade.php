@@ -13,7 +13,7 @@
             <tr> 
                 <td widh="20%"> </td>
                 <td widh="60%"> 
-                    {{ $content }}
+                    @yield('content')
                 </td>
                 <td widh="20%"> </td>
             </tr>

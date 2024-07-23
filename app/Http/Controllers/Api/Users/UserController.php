@@ -44,9 +44,30 @@ class UserController extends Controller
 
     }
 
-    public function Read(Request $request){
-        $user = User::find(1);
-        return  response()->json( ['data' => $user, 'rol' => $user->userRol ] , 400 );   
+    public function Read(Request $request, $id){
+        $user = User::find($id);
+        return  response()->json( ['data' => $user ] , 200 );   
+    }
+
+
+    public function SaveAvatar(Request $request, $id){
+        $base64Data = $request->input('img_profile');
+        $posicionComa = strpos($base64Data, ',');
+        $base_64Imagen = substr($base64Data, $posicionComa +1);
+        $decodeImage = base64_decode($base_64Imagen);
+        $path_public = 'profile_'.$id.'/avatar';
+
+        $folderPath = public_path($path_public);
+        if(!file_exists(($folderPath))){
+            mkdir($folderPath, 0755, true);
+        }
+
+        $imag_name = 'avatar.webp';
+        $absoluteUrl = $path_public.'/'.$imag_name;
+        $file_path = $folderPath.'/'.$imag_name;
+        file_put_contents($file_path, $decodeImage);
+
+        return response()->json(['message' => 'Imagen guardada', 'path_file', $absoluteUrl], 200);
     }
 
     public function List(Request $request){

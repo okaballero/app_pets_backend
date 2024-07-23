@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\LandingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',                                     [LandingController::class, 'Index'] );
+Route::get('/registro',                             [LandingController::class, 'Register'] );
+Route::post('/registro',                             [LandingController::class, 'Register'] );
+// Route::get('/', function () {
+    
+Route::get('/mail_invitacion',                                     [LandingController::class, 'Invitacion'] );
+//     return view('Landing_pets');
+// });
+
+
